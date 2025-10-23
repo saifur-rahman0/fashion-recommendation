@@ -2,6 +2,7 @@ import streamlit as st
 import tensorflow as tf
 from PIL import Image
 import io
+import os
 
 from fashion_agent import fashion_recommendation
 from utils.vision_models import predict_all
