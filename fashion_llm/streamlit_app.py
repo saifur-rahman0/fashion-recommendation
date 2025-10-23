@@ -11,11 +11,20 @@ from utils.vision_models import predict_all
 # -----------------------------
 @st.cache_resource
 def load_models():
-    skin_model = tf.keras.models.load_model("../Models/skin_tone_final_tf.keras")
-    age_model = tf.keras.models.load_model("../Models/age_vgg.h5", compile=False)
-    gender_model = tf.keras.models.load_model("../Models/gender_resnet.h5", compile=False)
-    return skin_model, age_model, gender_model
+    # Get the absolute path to the directory containing streamlit_app.py
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    # Navigate up to the project root and then into the Models directory
+    models_path = os.path.join(current_dir, "../Models")
 
+    # Now, construct the full, absolute path for each model file
+    skin_model_path = os.path.join(models_path, "skin_tone_final_tf.keras")
+    age_model_path = os.path.join(models_path, "age_vgg.h5")
+    gender_model_path = os.path.join(models_path, "gender_resnet.h5")
+
+    skin_model = tf.keras.models.load_model(skin_model_path)
+    age_model = tf.keras.models.load_model(age_model_path, compile=False)
+    gender_model = tf.keras.models.load_model(gender_model_path, compile=False)
+    return skin_model, age_model, gender_model
 
 skin_model, age_model, gender_model = load_models()
 
